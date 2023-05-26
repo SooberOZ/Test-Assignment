@@ -8,18 +8,15 @@ namespace WPFLayer
     {
         private readonly HttpClient _httpClient;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://api.coingecko.com/api/v3")
-            };
-        }
         public MainWindow(HttpClient httpClient)
         {
             InitializeComponent();
             _httpClient = httpClient;
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
         }
 
         private void GoToPopularCurrenciesPage()

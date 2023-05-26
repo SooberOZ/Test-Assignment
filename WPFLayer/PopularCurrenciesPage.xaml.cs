@@ -17,16 +17,15 @@ namespace WPFLayer
         {
             InitializeComponent();
             _httpClient = httpClient;
-            LoadPopularCurrencies();
+            Loaded += PopularCurrenciesPage_Loaded;
         }
 
-
         public static readonly DependencyProperty PopularCurrenciesProperty =
-        DependencyProperty.Register("PopularCurrencies", typeof(List<Currency>), typeof(PopularCurrenciesPage), new PropertyMetadata(null));
+            DependencyProperty.Register("PopularCurrencies", typeof(List<Currency>), typeof(PopularCurrenciesPage), new PropertyMetadata(null));
 
         public List<Currency> PopularCurrencies { get; set; }
 
-        private async void LoadPopularCurrencies()
+        private async void PopularCurrenciesPage_Loaded(object sender, RoutedEventArgs e)
         {
             List<Currency> popularCurrencies = await GetPopularCurrencies();
 
