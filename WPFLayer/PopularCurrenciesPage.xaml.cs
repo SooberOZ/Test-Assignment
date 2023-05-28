@@ -40,7 +40,8 @@ namespace WPFLayer
             }
             else
             {
-                throw new ArgumentException("Error with response");
+                MessageBox.Show("Error with response");
+                return null;
             }
         }
     }
