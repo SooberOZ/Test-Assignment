@@ -7,8 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame x:Name="MainFrame" />
-        <Button Content="Go to Popular Currencies" HorizontalAlignment="Left" Height="56" Margin="32,36,0,0" VerticalAlignment="Top" Width="205" Click="Button_Click"/>
-        <Button Content="Go to Currency Details" HorizontalAlignment="Left" Height="56" Margin="293,36,0,0" VerticalAlignment="Top" Width="227" Click="Button_Click_1"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,28">
+        </StackPanel>
+        <Frame x:Name="MainFrame" Margin="0,37,0,0" Grid.RowSpan="2" />
+        <Button Content="Go to Popular Currencies" HorizontalAlignment="Left" Height="33" Margin="26,4,0,0" VerticalAlignment="Top" Width="205" Click="Button_Click"/>
+        <Button Content="Find Currency" HorizontalAlignment="Center" VerticalAlignment="Center" Height="37" Width="223" Click="Button_Click_1"/>
     </Grid>
 </Window>

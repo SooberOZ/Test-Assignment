@@ -7,36 +7,38 @@ namespace WPFLayer
 {
     public partial class App : Application
     {
-        private IHttpClientFactory _httpClientFactory;
-        private HttpClient _httpClient;
+        //private ServiceProvider _serviceProvider;
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            ConfigureServices();
-            ConfigureHttpClient();
-            ConfigureNavigation();
-        }
+        //public App()
+        //{
+        //    // Set up the DI container
+        //    var services = new ServiceCollection();
+        //    services.AddHttpClient("CoingeckoClient", client =>
+        //    {
+        //        client.BaseAddress = new Uri("https://api.coingecko.com/api/v3/");
+        //    });
+        //    services.AddSingleton<MainWindow>();
+        //    services.AddSingleton<PopularCurrenciesPage>();
 
-        private void ConfigureServices()
-        {
-            IServiceCollection services = new ServiceCollection();
-            services.AddHttpClient();
-            // Другие регистрации служб, если есть
-            _httpClientFactory = services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>();
-        }
+        //    // Register the WindowFactory
+        //    services.AddSingleton<Func<MainWindow>>(sp =>
+        //    {
+        //        var provider = sp.GetRequiredService<IServiceProvider>();
+        //        return () => provider.GetRequiredService<MainWindow>();
+        //    });
 
-        private void ConfigureHttpClient()
-        {
-            _httpClient = _httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("https://api.coingecko.com/api/v3");
-        }
+        //    // Build the service provider
+        //    _serviceProvider = services.BuildServiceProvider();
+        //}
 
-        private void ConfigureNavigation()
-        {
-            var mainWindow = new MainWindow(_httpClient);
-            Current.MainWindow = mainWindow;
-            mainWindow.Show();
-        }
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
+
+        //    // Create the main window using WindowFactory
+        //    var windowFactory = _serviceProvider.GetRequiredService<Func<MainWindow>>();
+        //    var window = windowFactory();
+        //    window.Show();
+        //}
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,31 +21,26 @@ namespace WPFLayer
             Loaded += PopularCurrenciesPage_Loaded;
         }
 
-        public static readonly DependencyProperty PopularCurrenciesProperty =
-            DependencyProperty.Register("PopularCurrencies", typeof(List<Currency>), typeof(PopularCurrenciesPage), new PropertyMetadata(null));
-
-        public List<Currency> PopularCurrencies { get; set; }
-
         private async void PopularCurrenciesPage_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Currency> popularCurrencies = await GetPopularCurrencies();
+            List<CurrencyModel> popularCurrencies = await GetPopularCurrencies();
 
-            PopularCurrencies = popularCurrencies;
+            DataContext = popularCurrencies;
         }
 
-        private async Task<List<Currency>> GetPopularCurrencies()
+        private async Task<List<CurrencyModel>> GetPopularCurrencies()
         {
-            Uri requestUri = new Uri(_httpClient.BaseAddress, "/exchange_rates");
-            HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+            var response = await _httpClient.GetAsync("simple/supported_vs_currencies");
             if (response.IsSuccessStatusCode)
             {
                 string responseContent = await response.Content.ReadAsStringAsync();
-                List<Currency> currencies = JsonConvert.DeserializeObject<List<Currency>>(responseContent);
+                List<string> currencyCodes = JsonConvert.DeserializeObject<List<string>>(responseContent);
+                List<CurrencyModel> currencies = currencyCodes.Take(10).Select(code => new CurrencyModel { Name = code }).ToList();
                 return currencies;
             }
             else
             {
-                throw new ArgumentException("error with response");
+                throw new ArgumentException("Error with response");
             }
         }
     }
