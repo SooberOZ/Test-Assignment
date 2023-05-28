@@ -9,5 +9,6 @@ namespace WPFLayer.Models
         public decimal PriceInUSD { get; set; }
         public decimal TotalVolume { get; set; }
         public decimal PriceChange { get; set; }
+        public List<string> MarketLinks { get; set; }
     }
 }

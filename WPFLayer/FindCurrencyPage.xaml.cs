@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.CodeDom;
-using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,8 +11,6 @@ namespace WPFLayer
     public partial class FindCurrency : Page
     {
         private readonly HttpClient _httpClient;
-        //private string _currencySymbol;
-        //private string _date;
 
         public FindCurrency(HttpClient httpClient)
         {
@@ -25,26 +21,25 @@ namespace WPFLayer
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var currencyName = CurrencySymbolTextBox.Text.Trim();
-            var date = DateTextBox.Text.Trim();
 
-            if (!string.IsNullOrEmpty(currencyName) && !string.IsNullOrEmpty(date))
+            if (!string.IsNullOrEmpty(currencyName))
             {
-                await LoadCurrencyDetails(currencyName, date);
+                await LoadCurrencyDetails(currencyName);
             }
         }
 
-        private async Task LoadCurrencyDetails(string currencySymbol, string date)
+        private async Task LoadCurrencyDetails(string currencySymbol)
         {
             try
             {
-                CurrencyDetailsModel currencyDetails = await GetCurrencyDetails(currencySymbol, date);
+                CurrencyDetailsModel currencyDetails = await GetCurrencyDetails(currencySymbol);
 
                 NameLabel.Text = currencyDetails.Name;
                 SymbolLabel.Text = currencyDetails.Symbol;
                 PriceLabel.Text = $"${currencyDetails.PriceInUSD}";
                 VolumeLabel.Text = $"${currencyDetails.TotalVolume}";
                 PriceChangeLabel.Text = $"${currencyDetails.PriceChange}";
-                DateLabel.Text = date;
+                DateLabel.Text = DateTime.Today.ToString("dd-MM-yyyy");
             }
             catch (Exception ex)
             {
@@ -52,10 +47,9 @@ namespace WPFLayer
             }
         }
 
-        private async Task<CurrencyDetailsModel> GetCurrencyDetails(string currencySymbol, string date)
+        private async Task<CurrencyDetailsModel> GetCurrencyDetails(string currencySymbol)
         {
-            var url = $"coins/{currencySymbol}/history?date={date}";
-            var response = await _httpClient.GetAsync(url);
+            var response = await _httpClient.GetAsync($"coins/{currencySymbol}/history?date={DateTime.Today.ToString("dd-MM-yyyy")}");
 
             if (response.IsSuccessStatusCode)
             {

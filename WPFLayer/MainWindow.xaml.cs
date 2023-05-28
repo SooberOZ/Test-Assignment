@@ -25,5 +25,10 @@ namespace WPFLayer
         {
             MainFrame.Content = new FindCurrency(_httpClient);
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new DetailCurrencyInfoPage(_httpClient);
+        }
     }
 }
