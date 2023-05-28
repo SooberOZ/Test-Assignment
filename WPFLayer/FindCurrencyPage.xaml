@@ -10,6 +10,7 @@
     <Grid Background="White">
         <StackPanel>
             <TextBlock Text="Currency Name:" FontWeight="Bold"/>
+            <TextBlock Text="Write full name of currency(example 'Bitcoin')"/>
             <TextBox x:Name="CurrencySymbolTextBox" Margin="5"/>
 
             <Button Content="Find Currency" Click="Button_Click" Margin="5"/>

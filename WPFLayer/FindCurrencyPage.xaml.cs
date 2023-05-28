@@ -20,7 +20,7 @@ namespace WPFLayer
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var currencyName = CurrencySymbolTextBox.Text.Trim();
+            var currencyName = CurrencySymbolTextBox.Text.Trim().ToLower();
 
             if (!string.IsNullOrEmpty(currencyName))
             {
@@ -43,6 +43,7 @@ namespace WPFLayer
             }
             catch (Exception ex)
             {
+                MessageBox.Show("invalid data");
                 throw new ArgumentException("invalid data");
             }
         }
@@ -69,7 +70,8 @@ namespace WPFLayer
             }
             else
             {
-                 throw new ArgumentException("Failed response");
+                MessageBox.Show("Incorrect name of currency, try again later");
+                return null;
             }
         }
     }

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Net.Http;
 using System.Windows;
+using WPFLayer.WebApi;
 
 namespace WPFLayer
 {
     public partial class MainWindow : Window
     {
         private readonly HttpClient _httpClient;
+
         public MainWindow()
         {
             InitializeComponent();
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://api.coingecko.com/api/v3/")
-            };
+            _httpClient = HttpClientSingleton.Instance;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
